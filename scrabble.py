@@ -3,6 +3,12 @@ import itertools
 import numpy as np
 EMPTY = '.'
 
+# Init dictionary
+DICTIONARY = []
+with open('dictionary.txt', 'r') as f:
+  for word in f.readlines():
+    DICTIONARY.append(word.strip())
+
 class Board:
   BOARD_SIZE = 15
   def __init__(self, ):
@@ -82,21 +88,19 @@ class Board:
   def try_letters(self, letters, position, direction, minimum_num_of_letters):
     words = []
     for num_letters in range(minimum_num_of_letters, 8):
-      for letter_combination in itertools.permutations(letters, num_letters):
+      for potential_word in itertools.permutations(letters, num_letters):
         temp_board = self.copy()
-        temp_board.add_letters(letter_combination, position, direction)
-        # TODO
-        # check if we made a word
-        #   save if we did
-        # ignores words up/down we may have made
+        temp_board.add_letters(potential_word, position, direction)
+        # ignores words in the opposite direction that we may have made
+        if temp_board.get_word(position, direction) in DICTIONARY:
+          words.append(potential_word)
+          # print the board
+          temp_board = self.copy()
+          upper_letters = [letter.upper() for letter in potential_word]
+          temp_board.add_letters(upper_letters, position, direction)
+          print(temp_board)
     return words
   
-
-# Init dictionary
-dictionary = []
-with open('dictionary.txt', 'r') as f:
-  for word in f.readlines():
-    dictionary.append(word.strip())
 
 DOWN = 0
 ACROSS = 1
@@ -118,6 +122,6 @@ class Position():
 board = Board()
 board.add_letters('asdf', Position(7, 5), ACROSS)
 print(board.get_word(Position(7,7), ACROSS))
-print(board.try_letters(['a', 'b',], Position(6,6), DOWN, 1))
+print(board.try_letters(['c', 'o', 'g', 'a', 'b',], Position(6,7), DOWN, 1))
 
 print(board)
