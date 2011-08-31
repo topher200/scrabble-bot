@@ -5,7 +5,7 @@ EMPTY = '.'
 
 # Init dictionary
 DICTIONARY = []
-with open('dictionary.txt', 'r') as f:
+with open('short_dictionary.txt', 'r') as f:
   for word in f.readlines():
     DICTIONARY.append(word.strip())
 
@@ -92,13 +92,9 @@ class Board:
         temp_board = self.copy()
         temp_board.add_letters(potential_word, position, direction)
         # ignores words in the opposite direction that we may have made
-        if temp_board.get_word(position, direction) in DICTIONARY:
-          words.append(potential_word)
-          # print the board
-          temp_board = self.copy()
-          upper_letters = [letter.upper() for letter in potential_word]
-          temp_board.add_letters(upper_letters, position, direction)
-          print(temp_board)
+        word = temp_board.get_word(position, direction)
+        if word in DICTIONARY:
+          words.append(word)
     return words
   
 
