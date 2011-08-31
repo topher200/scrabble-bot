@@ -35,7 +35,7 @@ class Board:
 
   def copy(self):
     new_board = Board()
-    new_board.board = self.board[:]
+    new_board.board = self.board.copy()
     return new_board
 
   def add_letters(self, letters, starting_position, direction):
