@@ -26,12 +26,13 @@ class Board:
     self.board[position.down, position.across] = letter
 
   def __str__(self):
-    str = ''
+    string = ' 012345678901234\n'
     for x in range(len(self.board)):
+      string += str(x % 10)
       for y in range(len(self.board[x])):
-        str += self.board[x,y]
-      str += '\n'
-    return str
+        string += self.board[x,y]
+      string += '\n'
+    return string
 
   def copy(self):
     new_board = Board()
