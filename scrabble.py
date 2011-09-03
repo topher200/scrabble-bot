@@ -91,7 +91,7 @@ class Board:
       for potential_word in itertools.permutations(letters, num_letters):
         temp_board = self.copy()
         temp_board.add_letters(potential_word, position, direction)
-        # ignores words in the opposite direction that we may have made
+        # TODO: ignores words in the opposite direction that we may have made
         word = temp_board.get_word(position, direction)
         if word in DICTIONARY:
           words.append(word)
