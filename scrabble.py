@@ -156,9 +156,6 @@ class Board:
         words.add(word)
     return words
 
-
-                       
-
 DOWN = 0
 ACROSS = 1
 DIRECTIONS = [DOWN, ACROSS]
