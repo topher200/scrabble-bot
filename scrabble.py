@@ -68,19 +68,16 @@ class Board:
 
   def get_word(self, position, direction):
     def get_before_blank(starting_position, direction, travel_direction):
-      # returns the position of the last char before a blank
+      '''Returns the position of the last char before a blank (or edge of
+      board). Moves along direction (DOWN, ACROSS) in travel_direction
+      (left/up/-1 or down/across/+1).'''
       assert(not self.is_blank(starting_position))
       position = starting_position.copy()
-      while not self.is_blank(position):
-        if direction == ACROSS:
-          position.across += travel_direction
-        else:
-          position.down += travel_direction
-      # We have the position of the blank! Back up 1
-      if direction == ACROSS:
-        position.across -= travel_direction
-      else:
-        position.down -= travel_direction
+      while not (self.is_blank(position) or
+                 self.position_is_out_of_bounds(position)):
+        position.add_in_direction(travel_direction, direction)
+      # We have the position of the blank/edge! Back up 1.
+      position.add_in_direction(-travel_direction, direction)
       return position
 
     position = get_before_blank(position, direction, -1)
