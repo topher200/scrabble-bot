@@ -9,6 +9,9 @@ with open('short_dictionary.txt', 'r') as f:
   for word in f.readlines():
     DICTIONARY.append(word.strip())
 
+class OutOfBoundsException(Exception):
+  pass
+
 class Board:
   BOARD_SIZE = 15
   def __init__(self, ):
@@ -56,11 +59,12 @@ class Board:
     up.'''
     position = starting_position.copy()
     while len(letters) > 0:
+      if self.position_is_out_of_bounds(position):
+        raise OutOfBoundsException("trying to add a letter OOB")
       if self.is_blank(position):
-        if not self.position_is_out_of_bounds(position):
-          # There's nothing here- put a letter down
-          self[position] = letters[0]
-          letters = letters[1:]
+        # There's nothing here- put a letter down
+        self[position] = letters[0]
+        letters = letters[1:]
       # Move to the next position
       position.add_in_direction(1, direction)
 
@@ -108,7 +112,11 @@ class Board:
       for potential_word in itertools.permutations(letters, num_letters):
         # Make a fake board and add these letters to it
         temp_board = self.copy()
-        temp_board.add_letters(potential_word, position, direction)
+        try:
+          temp_board.add_letters(potential_word, position, direction)
+        except OutOfBoundsException:
+          # Just skip if we start or end out of bounds
+          continue
         word = temp_board.get_word(position, direction)
         if word in DICTIONARY:
           # We made a word!
