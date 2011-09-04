@@ -6,11 +6,11 @@ EMPTY_SPACE = '.'
 class Board:
   BOARD_SIZE = 15
   def __init__(self, ):
-    self.board =  np.zeros((self.BOARD_SIZE, self.BOARD_SIZE), 'string')
+    self.spaces =  np.zeros((self.BOARD_SIZE, self.BOARD_SIZE), 'string')
     # TODO: find a better way to initialize to spaces
-    for x in range(len(self.board)):
-      for y in range(len(self.board[x])):
-        self.board[x,y] = EMPTY_SPACE
+    for x in range(len(self.spaces)):
+      for y in range(len(self.spaces[x])):
+        self.spaces[x,y] = EMPTY_SPACE
 
   def is_blank(self, position):
     # Returns True if the block is empty
@@ -23,23 +23,23 @@ class Board:
         (position.across < 0 or position.across >= self.BOARD_SIZE)
 
   def __getitem__(self, position):
-    return self.board[position.down, position.across]
+    return self.spaces[position.down, position.across]
 
   def __setitem__(self, position, letter):
-    self.board[position.down, position.across] = letter
+    self.spaces[position.down, position.across] = letter
 
   def __str__(self):
     string = ' 012345678901234\n'
-    for x in range(len(self.board)):
+    for x in range(len(self.spaces)):
       string += str(x % 10)
-      for y in range(len(self.board[x])):
-        string += self.board[x,y]
+      for y in range(len(self.spaces[x])):
+        string += self.spaces[x,y]
       string += '\n'
     return string
 
   def copy(self):
     new_board = Board()
-    new_board.board = self.board.copy()
+    new_board.spaces = self.spaces.copy()
     return new_board
 
   def add_letters(self, letters, starting_position, direction):
@@ -82,8 +82,8 @@ class Board:
   def get_position_of_letters_on_board(self,):
     '''Returns a Position for each letter currently placed on the board'''
     position_list = []
-    for x in range(len(self.board)):
-      for y in range(len(self.board[0])):
+    for x in range(len(self.spaces)):
+      for y in range(len(self.spaces[0])):
         position = Position(x, y)
         if not self.is_blank(position):
           position_list.append(position)
