@@ -51,12 +51,19 @@ class Board:
     return new_board
 
   def add_letters(self, letters, starting_position, direction):
+    '''Put letters on each blank space on the board, starting at
+    starting_position and moving in direction until all the letters are used
+    up.'''
     position = starting_position.copy()
     while len(letters) > 0:
-      # Put down a letter if there's nothing here
+      if self.position_is_out_of_bounds(position):
+        # Position is out of bounds- don't put a letter down
+        continue
       if self.is_blank(position):
+        # There's nothing here- put a letter down
         self[position] = letters[0]
         letters = letters[1:]
+      # Move to the next position
       position.add_in_direction(1, direction)
 
   def get_word(self, position, direction):
