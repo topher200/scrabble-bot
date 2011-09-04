@@ -3,6 +3,7 @@ from __future__ import with_statement
 import itertools
 import numpy as np
 import time
+from position import Position
 EMPTY = '.'
 
 # Init dictionary
@@ -128,7 +129,7 @@ class Board:
     Skips checking the position if it's already occupied by a letter.'''
     words = []
     for base_position in self.get_position_of_letters_on_board():
-      for direction in DIRECTIONS:
+      for direction in Position.DIRECTIONS:
         # Try 7 to the left (or up), and 1 to the right (or down)
         magnitudes_to_try = range(-7, 0) + [1]
         for distance_away_from_position in magnitudes_to_try:
@@ -157,44 +158,18 @@ class Board:
         words.add(word)
     return words
 
-DOWN = 0
-ACROSS = 1
-DIRECTIONS = [DOWN, ACROSS]
-class Position():
-  def __init__(self, down, across):
-    self.down = down
-    self.across = across
-
-  def __str__(self, ):
-    return '(%i, %i)' % (self.down, self.across)
-
-  def equals (self, other_pos):
-    return ((self.down == other_pos.down) and (self.across == other_pos.across))
-
-  # TODO(topher): better way to create a copy
-  def copy(self, ):
-    return Position(self.down, self.across)
-
-  def add_in_direction(self, magnitude, direction):
-    if direction == ACROSS:
-      self.across += magnitude
-    elif direction == DOWN:
-      self.down += magnitude
-    else:
-      raise Exception("shouldn't get here. Direction: %s" % direction)
-
 def main():
   start_time = time.time()
 
   board = Board()
-  board.add_letters('radar', Position(7, 4), ACROSS)
-  board.add_letters('oom', Position(8, 4), DOWN)
-  board.add_letters('eet', Position(10, 5), ACROSS)
-  board.add_letters('admie', Position(3, 8), DOWN)
+  board.add_letters('radar', Position(7, 4), Position.ACROSS)
+  board.add_letters('oom', Position(8, 4), Position.DOWN)
+  board.add_letters('eet', Position(10, 5), Position.ACROSS)
+  board.add_letters('admie', Position(3, 8), Position.DOWN)
   print(board)
 
   print(board.get_possible_words([
-        't', 'e', 'c', 't', 'e', 'i', 'i', 
+        't', 'e', 'c', 
         ]))
 
   end_time = time.time()
