@@ -1,6 +1,7 @@
 from __future__ import with_statement
 import itertools
 import numpy as np
+import time
 EMPTY = '.'
 
 # Init dictionary
@@ -170,11 +171,19 @@ class Position():
     else:
       raise Exception("shouldn't get here. Direction: %s" % direction)
 
-board = Board()
-board.add_letters('radar', Position(7, 5), ACROSS)
-print(board)
+def main():
+  start_time = time.time()
 
-print(board.try_letters_everywhere([
-      'm', 'o', 'o', 'e', 'i', 'e', 'e', 
-      ]))
+  board = Board()
+  board.add_letters('radar', Position(7, 5), ACROSS)
+  print(board)
 
+  print(board.try_letters_everywhere([
+        'm', 'o', 'o', 'e', 'i', 'e', 'e', 
+        ]))
+
+  end_time = time.time()
+  print("script took %s seconds" % (end_time - start_time))
+
+if __name__ == '__main__':
+  main()
