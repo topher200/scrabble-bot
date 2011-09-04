@@ -54,11 +54,9 @@ class Board:
     '''Put letters on each blank space on the board, starting at
     starting_position and moving in direction until all the letters are used
     up.'''
+    assert not self.position_is_out_of_bounds(starting_position)
     position = starting_position.copy()
     while len(letters) > 0:
-      if self.position_is_out_of_bounds(position):
-        # Position is out of bounds- don't put a letter down
-        continue
       if self.is_blank(position):
         # There's nothing here- put a letter down
         self[position] = letters[0]
@@ -129,6 +127,10 @@ class Board:
         for distance_away_from_position in magnitudes_to_try:
           position = base_position.copy()
           position.add_in_direction(distance_away_from_position, direction)
+          if self.position_is_out_of_bounds(position):
+            # Can't start at out of bounds positions
+            continue
+          print 'position: %s' % position
           words.append(self.try_letters_at_position(
               letters, position, direction, abs(distance_away_from_position)))
     return words
