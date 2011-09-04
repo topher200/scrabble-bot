@@ -120,6 +120,14 @@ class Position():
   def copy(self, ):
     return Position(self.down, self.across)
 
+  def add_in_direction(self, magnitude, direction):
+    if direction == ACROSS:
+      self.across += magnitude
+    elif direction == DOWN:
+      self.down += magnitude
+    else:
+      raise Exception("shouldn't get here. Direction: %s" % direction)
+
 board = Board()
 board.add_letters('asdf', Position(7, 5), ACROSS)
 board.add_letters('qwerty', Position(6, 8), DOWN)
