@@ -22,9 +22,7 @@ class Board:
         self.board[x,y] = EMPTY
 
   def is_blank(self, position):
-    # Returns True if the block is empty or out of bounds.
-    if self.position_is_out_of_bounds(position):
-      return True
+    # Returns True if the block is empty
     if self[position] == EMPTY:
       return True
     return False
