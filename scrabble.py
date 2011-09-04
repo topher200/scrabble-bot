@@ -19,8 +19,10 @@ class Board:
         self.board[x,y] = EMPTY
 
   def is_blank(self, position):
-    # Try to check for blank. If we get an exception, we know we're out of bounds
-    # TODO(topher): add OOB error case
+    # Returns True if the block is empty or out of bounds.
+    if (position.down < 0 or position.down >= BOARD_SIZE) or \
+          (position.across < 0 or position.across >= BOARD_SIZE):
+      return True
     if self[position] == EMPTY:
       return True
     return False
