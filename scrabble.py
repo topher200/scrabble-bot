@@ -143,6 +143,20 @@ class Board:
           words.append(self.try_letters_at_position(
               letters, position, direction, abs(distance_away_from_position)))
     return words
+
+  def get_possible_words(self, letters):
+    '''Returns a list of the unique words we found.'''
+    word_lists = self.try_letters_everywhere(letters)
+    words = set()
+    for word_list in word_lists:
+      if type(word_list) == str:
+        # Crap- it's not a list. It's just a single word
+        words.add(word_list)
+      for word in word_list:
+        words.add(word)
+    return words
+
+
                        
 
 DOWN = 0
@@ -176,10 +190,11 @@ def main():
 
   board = Board()
   board.add_letters('radar', Position(7, 5), ACROSS)
+  board.add_letters('room', Position(7, 5), DOWN)
   print(board)
 
-  print(board.try_letters_everywhere([
-        'm', 'o', 'o', 'e', 'i', 'e', 'e', 
+  print(board.get_possible_words([
+        't', 'e', 'a', 
         ]))
 
   end_time = time.time()
