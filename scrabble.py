@@ -54,13 +54,13 @@ class Board:
     '''Put letters on each blank space on the board, starting at
     starting_position and moving in direction until all the letters are used
     up.'''
-    assert not self.position_is_out_of_bounds(starting_position)
     position = starting_position.copy()
     while len(letters) > 0:
       if self.is_blank(position):
-        # There's nothing here- put a letter down
-        self[position] = letters[0]
-        letters = letters[1:]
+        if not self.position_is_out_of_bounds(position):
+          # There's nothing here- put a letter down
+          self[position] = letters[0]
+          letters = letters[1:]
       # Move to the next position
       position.add_in_direction(1, direction)
 
