@@ -121,7 +121,9 @@ class Board:
   def try_letters_everywhere(self, letters, ):
     '''Attempt to use these letters anywhere they would work on the
     board. This means the 7 spaces to the top/left of each piece on the board,
-    and 1 space to the down/right.'''
+    and 1 space to the down/right.
+
+    Skips checking the position if it's already occupied by a letter.'''
     words = []
     for base_position in self.get_position_of_letters_on_board():
       for direction in DIRECTIONS:
@@ -131,7 +133,10 @@ class Board:
           position = base_position.copy()
           position.add_in_direction(distance_away_from_position, direction)
           if self.position_is_out_of_bounds(position):
-            # Can't start at out of bounds positions
+            # Can't start at an out of bounds position
+            continue
+          if not self.is_blank(position):
+            # Skipping position- already has a letter
             continue
           print 'position: %s' % position
           words.append(self.try_letters_at_position(
