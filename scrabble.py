@@ -54,13 +54,10 @@ class Board:
     position = starting_position.copy()
     while len(letters) > 0:
       # Put down a letter if there's nothing here
-      if self[position] == EMPTY:
-       self[position] = letters[0]
-       letters = letters[1:]
-      if direction == ACROSS:
-        position.across += 1
-      else:
-        position.down += 1
+      if self.is_blank(position):
+        self[position] = letters[0]
+        letters = letters[1:]
+      position.add_in_direction(1, direction)
 
   def get_word(self, position, direction):
     def get_before_blank(starting_position, direction, travel_direction):
@@ -129,7 +126,6 @@ class Board:
           position.add_in_direction(distance_away_from_position, direction)
           words.append(self.try_letters_at_position(
               letters, position, direction, abs(distance_away_from_position)))
-          print position, words[-1]
     return words
                        
 
@@ -160,10 +156,10 @@ class Position():
       raise Exception("shouldn't get here. Direction: %s" % direction)
 
 board = Board()
-board.add_letters('asdf', Position(7, 5), ACROSS)
-board.add_letters('qwerty', Position(6, 8), DOWN)
-print(board.get_word(Position(7,7), ACROSS))
-print(board.try_letters_at_position(['c', 'o', 'g', 'a', 'b',],
-                                    Position(6,7), DOWN, 1))
-
+board.add_letters('radar', Position(7, 5), ACROSS)
 print(board)
+
+print(board.try_letters_everywhere([
+      'm', 'o', 'o', 'e', 'i', 'e', 'e', 
+      ]))
+
