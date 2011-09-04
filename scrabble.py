@@ -85,16 +85,20 @@ class Board:
       word += self[start]
     return word
 
-  def try_all_letter_combinations(self, letters, position, direction,
-                                  minimum_num_of_letters):
+  def try_letters_at_position(self, letters, position, direction,
+                              minimum_num_of_letters):
+    '''Try each combination (1 to minimum_num_of_letters letters) and see if
+    it makes a word.'''
     words = []
     for num_letters in range(minimum_num_of_letters, 8):
       for potential_word in itertools.permutations(letters, num_letters):
+        # Make a fake board and add these letters to it
         temp_board = self.copy()
         temp_board.add_letters(potential_word, position, direction)
-        # TODO: ignores words in the opposite direction that we may have made
         word = temp_board.get_word(position, direction)
         if word in DICTIONARY:
+          # We made a word!
+          # TODO(topher): should probably also return location
           words.append(word)
     return words
   
@@ -118,8 +122,9 @@ class Position():
 
 board = Board()
 board.add_letters('asdf', Position(7, 5), ACROSS)
+board.add_letters('qwerty', Position(6, 8), DOWN)
 print(board.get_word(Position(7,7), ACROSS))
-print(board.try_all_letter_combinations(['c', 'o', 'g', 'a', 'b',],
-                                        Position(6,7), DOWN, 1))
+print(board.try_letters_at_position(['c', 'o', 'g', 'a', 'b',],
+                                    Position(6,7), DOWN, 1))
 
 print(board)
