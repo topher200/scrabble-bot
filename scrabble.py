@@ -22,7 +22,7 @@ class PositionToTry(object):
     self.distance_to_closest_letter = distance_to_closest_letter
 
 class Scrabble:
-  def __init__(self, board):
+  def __init__(self, board = Board()):
     self.board = board
 
   def try_letters_at_position(self, letters, position_to_try):
@@ -96,8 +96,7 @@ class Scrabble:
 def main():
   start_time = time.time()
 
-  board = Board()
-  game = Scrabble(board)
+  game = Scrabble()
   game.board.add_letters('radar', Position(7, 4), Position.ACROSS)
   game.board.add_letters('oom', Position(8, 4), Position.DOWN)
   game.board.add_letters('eet', Position(10, 5), Position.ACROSS)
