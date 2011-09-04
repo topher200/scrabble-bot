@@ -18,16 +18,6 @@ class Scrabble:
   def __init__(self, board):
     self.board = board
 
-  def get_position_of_letters_on_board(self,):
-    '''Returns a Position for each letter currently placed on the board'''
-    position_list = []
-    for x in range(len(self.board)):
-      for y in range(len(self.board[0])):
-        position = Position(x, y)
-        if not self.board.is_blank(position):
-          position_list.append(position)
-    return position_list
-
   def try_letters_at_position(self, letters, position, direction,
                               minimum_num_of_letters):
     '''Try each combination (1 to minimum_num_of_letters letters) and see if
@@ -55,7 +45,7 @@ class Scrabble:
 
     Skips checking the position if it's already occupied by a letter.'''
     words = []
-    for base_position in self.get_position_of_letters_on_board():
+    for base_position in self.board.get_position_of_all_letters():
       for direction in Position.DIRECTIONS:
         # Try 7 to the left (or up), and 1 to the right (or down)
         magnitudes_to_try = range(-7, 0) + [1]

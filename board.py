@@ -79,7 +79,7 @@ class Board:
       word += self[position]
     return word
 
-  def get_position_of_letters_on_board(self,):
+  def get_position_of_all_letters(self,):
     '''Returns a Position for each letter currently placed on the board'''
     position_list = []
     for x in range(len(self.spaces)):
