@@ -4,7 +4,7 @@ import itertools
 import numpy as np
 import time
 from position import Position
-EMPTY = '.'
+EMPTY_SPACE = '.'
 
 # Init dictionary
 DICTIONARY = []
@@ -22,11 +22,11 @@ class Board:
     # TODO: find a better way to initialize to spaces
     for x in range(len(self.board)):
       for y in range(len(self.board[x])):
-        self.board[x,y] = EMPTY
+        self.board[x,y] = EMPTY_SPACE
 
   def is_blank(self, position):
     # Returns True if the block is empty
-    if self[position] == EMPTY:
+    if self[position] == EMPTY_SPACE:
       return True
     return False
 
