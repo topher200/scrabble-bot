@@ -187,12 +187,14 @@ def main():
   start_time = time.time()
 
   board = Board()
-  board.add_letters('radar', Position(7, 5), ACROSS)
-  board.add_letters('room', Position(7, 5), DOWN)
+  board.add_letters('radar', Position(7, 4), ACROSS)
+  board.add_letters('oom', Position(8, 4), DOWN)
+  board.add_letters('eet', Position(10, 5), ACROSS)
+  board.add_letters('admie', Position(3, 8), DOWN)
   print(board)
 
   print(board.get_possible_words([
-        't', 'e', 'a', 
+        't', 'e', 'c', 't', 'e', 'i', 'i', 
         ]))
 
   end_time = time.time()
