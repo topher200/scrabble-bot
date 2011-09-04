@@ -1,3 +1,4 @@
+from __future__ import division
 from __future__ import with_statement
 import itertools
 import numpy as np
@@ -195,7 +196,7 @@ def main():
         ]))
 
   end_time = time.time()
-  print("script took %s seconds" % (end_time - start_time))
+  print("script took %s minutes" % ((end_time - start_time) / 60))
 
 if __name__ == '__main__':
   main()
