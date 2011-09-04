@@ -73,8 +73,8 @@ class Board:
       (left/up/-1 or down/across/+1).'''
       assert(not self.is_blank(starting_position))
       position = starting_position.copy()
-      while not (self.is_blank(position) or
-                 self.position_is_out_of_bounds(position)):
+      while not (self.position_is_out_of_bounds(position) or
+                 self.is_blank(position)):
         position.add_in_direction(travel_direction, direction)
       # We have the position of the blank/edge! Back up 1.
       position.add_in_direction(-travel_direction, direction)
