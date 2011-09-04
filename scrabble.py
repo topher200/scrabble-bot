@@ -83,15 +83,12 @@ class Board:
         position.down -= travel_direction
       return position
 
-    start = get_before_blank(position, direction, -1)
+    position = get_before_blank(position, direction, -1)
     end = get_before_blank(position, direction, +1)
     word = self[start]
-    while not start.equals(end):
-      if direction == ACROSS:
-        start.across += 1
-      else:
-        start.down += 1
-      word += self[start]
+    while not position.equals(end):
+      position.add_in_direction(direction)
+      word += self[position]
     return word
 
   def get_position_of_letters_on_board(self,):
