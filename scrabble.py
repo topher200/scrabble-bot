@@ -39,6 +39,13 @@ class Scrabble:
     return words
 
   def generate_positions_to_try(self, ):
+    '''Returns all possible places where our 7 letters could be played. This
+    means the 7 spaces to the top/left of each piece on the board, and 1 space
+    to the down/right. A position is skipped if it is not on the board or
+    already occupied by a piece.
+
+    The return type is a dict of elements of the form:
+    (Position, distance away from closest letter on board)'''
     position_dict = {}
     for base_position in self.board.get_position_of_all_letters():
       for direction in Position.DIRECTIONS:
@@ -53,7 +60,13 @@ class Scrabble:
           if not self.board.is_blank(position):
             # Skipping position- already has a letter
             continue
-          position_dict[position] = abs(distance_away_from_position)
+          if position_dict.get(position):
+            # There's already a distance! Take the closer one.
+            position_dict[position] = min(position_dict[position],
+                                          abs(distance_away_from_position))
+          else:
+            # There's nothing yet- add our position
+            position_dict[position] = abs(distance_away_from_position)
     return position_dict
 
   def try_letters_everywhere(self, letters, ):
