@@ -38,6 +38,24 @@ class Scrabble:
           words.append(word)
     return words
 
+  def generate_positions_to_try(self, ):
+    position_dict = {}
+    for base_position in self.board.get_position_of_all_letters():
+      for direction in Position.DIRECTIONS:
+        # Try 7 to the left (or up), and 1 to the right (or down)
+        magnitudes_to_try = range(-7, 0) + [1]
+        for distance_away_from_position in magnitudes_to_try:
+          position = base_position.copy()
+          position.add_in_direction(distance_away_from_position, direction)
+          if self.board.position_is_out_of_bounds(position):
+            # Can't start at an out of bounds position
+            continue
+          if not self.board.is_blank(position):
+            # Skipping position- already has a letter
+            continue
+          position_dict[position] = abs(distance_away_from_position)
+    return position_dict
+
   def try_letters_everywhere(self, letters, ):
     '''Attempt to use these letters anywhere they would work on the
     board. This means the 7 spaces to the top/left of each piece on the board,
