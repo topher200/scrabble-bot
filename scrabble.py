@@ -92,12 +92,13 @@ class Board:
     return word
 
   def get_position_of_letters_on_board(self,):
+    '''Returns a Position for each letter currently placed on the board'''
     position_list = []
     for x in range(len(self.board)):
       for y in range(len(self.board[0])):
-        letter = self.board[x, y]
-        if letter != EMPTY:
-          position_list.append(Position(x, y))
+        position = Position(x, y)
+        if not self.is_blank(position):
+          position_list.append(position)
     return position_list
 
   def try_letters_at_position(self, letters, position, direction,
