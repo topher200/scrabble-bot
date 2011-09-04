@@ -74,7 +74,7 @@ class Board:
     position = get_before_blank(position, direction, -1)
     end = get_before_blank(position, direction, +1)
     word = self[position]
-    while not position.equals(end):
+    while position != end:
       position.add_in_direction(1, direction)
       word += self[position]
     return word

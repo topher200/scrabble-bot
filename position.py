@@ -1,4 +1,4 @@
-class Position():
+class Position(object):
   DOWN = 0
   ACROSS = 1
   DIRECTIONS = [DOWN, ACROSS]
@@ -10,7 +10,7 @@ class Position():
   def __str__(self, ):
     return '(%i, %i)' % (self.down, self.across)
 
-  def equals (self, other_pos):
+  def __eq__(self, other_pos):
     return ((self.down == other_pos.down) and (self.across == other_pos.across))
 
   # TODO(topher): better way to create a copy
