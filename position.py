@@ -13,6 +13,12 @@ class Position(object):
   def __eq__(self, other_pos):
     return ((self.down == other_pos.down) and (self.across == other_pos.across))
 
+  def __ne__(self, other_pos):
+    return not (self == other_pos)
+
+  def __hash__(self, ):
+    return int('%03i%03i' %(self.down, self.across))
+
   # TODO(topher): better way to create a copy
   def copy(self, ):
     return Position(self.down, self.across)
