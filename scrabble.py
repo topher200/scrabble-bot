@@ -20,12 +20,15 @@ class Board:
 
   def is_blank(self, position):
     # Returns True if the block is empty or out of bounds.
-    if (position.down < 0 or position.down >= BOARD_SIZE) or \
-          (position.across < 0 or position.across >= BOARD_SIZE):
+    if self.position_is_out_of_bounds(position_is_out_of_bounds):
       return True
     if self[position] == EMPTY:
       return True
     return False
+
+  def position_is_out_of_bounds(self, position):
+    return (position.down < 0 or position.down >= BOARD_SIZE) or \
+        (position.across < 0 or position.across >= BOARD_SIZE)
 
   def __getitem__(self, position):
     return self.board[position.down, position.across]
