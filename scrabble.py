@@ -1,6 +1,7 @@
 from __future__ import division
 from __future__ import with_statement
 import itertools
+import logging
 import time
 from position import Position
 from board import Board
@@ -49,7 +50,7 @@ class Scrabble:
   def try_letters_at_positions_to_try(self, letters, positions_to_try):
     word_lists = []
     for position_to_try in positions_to_try:
-      print 'trying position: %s' % position_to_try.position
+      logging.info('trying position: %s' % position_to_try.position)
       word_lists.append(
         self.try_letters_at_position(letters, position_to_try))
     return word_lists
@@ -101,15 +102,15 @@ def main():
   game.board.add_letters('oom', Position(8, 4), Position.DOWN)
   game.board.add_letters('eet', Position(10, 5), Position.ACROSS)
   game.board.add_letters('admie', Position(3, 8), Position.DOWN)
-  print(game.board)
+  logging.fatal(game.board)
 
   positions_to_try = game.generate_positions_to_try()
-  print(game.get_possible_words([
+  logging.fatal(game.get_possible_words([
         't', 'e', 'c', 
         ], positions_to_try))
 
   end_time = time.time()
-  print("script took %s minutes" % ((end_time - start_time) / 60))
+  logging.info("script took %s minutes" % ((end_time - start_time) / 60))
 
 if __name__ == '__main__':
   main()
