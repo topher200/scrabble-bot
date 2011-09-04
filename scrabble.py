@@ -85,7 +85,8 @@ class Board:
       word += self[start]
     return word
 
-  def try_letters(self, letters, position, direction, minimum_num_of_letters):
+  def try_all_letter_combinations(self, letters, position, direction,
+                                  minimum_num_of_letters):
     words = []
     for num_letters in range(minimum_num_of_letters, 8):
       for potential_word in itertools.permutations(letters, num_letters):
@@ -118,6 +119,7 @@ class Position():
 board = Board()
 board.add_letters('asdf', Position(7, 5), ACROSS)
 print(board.get_word(Position(7,7), ACROSS))
-print(board.try_letters(['c', 'o', 'g', 'a', 'b',], Position(6,7), DOWN, 1))
+print(board.try_all_letter_combinations(['c', 'o', 'g', 'a', 'b',],
+                                        Position(6,7), DOWN, 1))
 
 print(board)
