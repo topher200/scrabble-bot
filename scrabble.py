@@ -77,12 +77,12 @@ class Scrabble:
             # Skipping position- already has a letter
             continue
           positions_to_try.append(PositionToTry(position, direction,
-                                                distance_away_from_base))
+                                                abs(distance_away_from_base)))
     return positions_to_try
 
-  def get_possible_words(self, letters):
+  def get_possible_words(self, letters, positions_to_try):
     '''Returns a list of the unique words we found.'''
-    word_lists = self.try_letters_everywhere(letters)
+    word_lists = self.try_letters_at_positions_to_try(letters, positions_to_try)
     words = set()
     for word_list in word_lists:
       if type(word_list) == str:
@@ -102,11 +102,11 @@ def main():
   game.board.add_letters('eet', Position(10, 5), Position.ACROSS)
   game.board.add_letters('admie', Position(3, 8), Position.DOWN)
   print(game.board)
-  print(len(game.generate_positions_to_try()))
 
+  positions_to_try = game.generate_positions_to_try()
   print(game.get_possible_words([
         't', 'e', 'c', 
-        ]))
+        ], positions_to_try))
 
   end_time = time.time()
   print("script took %s minutes" % ((end_time - start_time) / 60))
