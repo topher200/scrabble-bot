@@ -85,6 +85,15 @@ class Board:
       word += self[start]
     return word
 
+  def get_position_of_letters_on_board(self,):
+    position_list = []
+    for x in range(len(self.board)):
+      for y in range(len(self.board[0])):
+        letter = self.board[x, y]
+        if letter != EMPTY:
+          position_list.append(Position(x, y))
+    return position_list
+
   def try_letters_at_position(self, letters, position, direction,
                               minimum_num_of_letters):
     '''Try each combination (1 to minimum_num_of_letters letters) and see if
@@ -98,13 +107,30 @@ class Board:
         word = temp_board.get_word(position, direction)
         if word in DICTIONARY:
           # We made a word!
-          # TODO(topher): should probably also return location
           words.append(word)
     return words
-  
+
+  def try_letters_everywhere(self, letters, ):
+    '''Attempt to use these letters anywhere they would work on the
+    board. This means the 7 spaces to the top/left of each piece on the board,
+    and 1 space to the down/right.'''
+    words = []
+    for base_position in self.get_position_of_letters_on_board():
+      for direction in DIRECTIONS:
+        # Try 7 to the left (or up), and 1 to the right (or down)
+        magnitudes_to_try = range(-7, 0) + [1]
+        for distance_away_from_position in magnitudes_to_try:
+          position = base_position.copy()
+          position.add_in_direction(distance_away_from_position, direction)
+          words.append(self.try_letters_at_position(
+              letters, position, direction, abs(distance_away_from_position)))
+          print position, words[-1]
+    return words
+                       
 
 DOWN = 0
 ACROSS = 1
+DIRECTIONS = [DOWN, ACROSS]
 class Position():
   def __init__(self, down, across):
     self.down = down
