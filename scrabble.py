@@ -4,16 +4,13 @@ import itertools
 import logging
 import time
 from position import Position
-from board import Board
+from board import Board, OutOfBoundsException
 
 # Init dictionary
 DICTIONARY = []
 with open('short_dictionary.txt', 'r') as f:
   for word in f.readlines():
     DICTIONARY.append(word.strip())
-
-class OutOfBoundsException(Exception):
-  pass
 
 class PositionToTry(object):
   def __init__(self, position, direction, distance_to_closest_letter):

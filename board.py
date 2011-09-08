@@ -3,6 +3,9 @@ from position import Position
 
 EMPTY_SPACE = '.'
 
+class OutOfBoundsException(Exception):
+  pass
+
 class Board:
   BOARD_SIZE = 15
   def __init__(self, ):
