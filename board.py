@@ -32,12 +32,15 @@ class Board:
     self.spaces[position.down, position.across] = letter
 
   def __str__(self):
-    string = ' 012345678901234\n'
+    string = ' \n'
     for x in range(len(self.spaces)):
       string += str(x % 10)
       for y in range(len(self.spaces[x])):
         string += self.spaces[x,y]
       string += '\n'
+    string += '.'
+    for y in range(len(self.spaces[0])):
+      string += str(y % 10)
     return string
 
   def copy(self):
