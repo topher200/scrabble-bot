@@ -30,4 +30,27 @@ class Position(object):
       self.down += magnitude
     else:
       raise Exception("shouldn't get here. Direction: %s" % direction)
+    
+class PositionToTry(object):
+  def __init__(self, position = Position(), direction = Position.ACROSS,
+               distance_to_closest_letter = 1):
+    self.position = position
+    self.direction = direction
+    self.distance_to_closest_letter = distance_to_closest_letter
+
+  def __str__(self, ):
+    return('pos:%s, direction:%i, min_distance:%i' % \
+        (str(self.position), self.direction, self.distance_to_closest_letter))
+
+  def __eq__(self, other_ptt):
+    return (self.position == other_ptt.position) and \
+        (self.direction == other_ptt.direction) and \
+        (self.distance_to_closest_letter == \
+           other_ptt.distance_to_closest_letter)
+
+  def parse_from_string(self, string):
+    match = re.match('pos:(.*), direction:(\d+), min_distance:(\d+)', string)
+    self.position.parse_from_string(match.group(1))
+    self.direction = int(match.group(2))
+    self.distance_to_closest_letter = int(match.group(3))
 

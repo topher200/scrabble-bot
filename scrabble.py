@@ -12,12 +12,6 @@ with open('short_dictionary.txt', 'r') as f:
   for word in f.readlines():
     DICTIONARY.append(word.strip())
 
-class PositionToTry(object):
-  def __init__(self, position, direction, distance_to_closest_letter):
-    self.position = position
-    self.direction = direction
-    self.distance_to_closest_letter = distance_to_closest_letter
-
 class Scrabble:
   def __init__(self, board = Board()):
     self.board = board
