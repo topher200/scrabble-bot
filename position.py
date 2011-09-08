@@ -1,14 +1,13 @@
+import re
+
 class Position(object):
   DOWN = 0
   ACROSS = 1
   DIRECTIONS = [DOWN, ACROSS]
 
-  def __init__(self, down, across):
+  def __init__(self, down = 0, across = 0):
     self.down = down
     self.across = across
-
-  def __str__(self, ):
-    return '(%i, %i)' % (self.down, self.across)
 
   def __eq__(self, other_pos):
     return ((self.down == other_pos.down) and (self.across == other_pos.across))
@@ -18,6 +17,13 @@ class Position(object):
 
   def __hash__(self, ):
     return int('%03i%03i' %(self.down, self.across))
+
+  def __str__(self, ):
+    return '(%i, %i)' % (self.down, self.across)
+
+  def parse_from_string(self, string):
+    (self.down, self.across) = \
+        map(int, re.search('(\d+), (\d+)', string).groups())
 
   # TODO(topher): better way to create a copy
   def copy(self, ):
