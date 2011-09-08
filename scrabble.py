@@ -3,7 +3,7 @@ from __future__ import with_statement
 import itertools
 import logging
 import time
-from position import Position
+from position import Position, PositionToTry
 from board import Board, OutOfBoundsException
 
 # Init dictionary
