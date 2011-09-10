@@ -8,7 +8,7 @@ from board import Board, OutOfBoundsException
 
 # Init dictionary
 DICTIONARY = []
-with open('short_dictionary.txt', 'r') as f:
+with open('dictionary.txt', 'r') as f:
   for word in f.readlines():
     DICTIONARY.append(word.strip())
 
