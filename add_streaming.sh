@@ -1,3 +1,4 @@
+./generate_input_file.py
 ./upload_to_s3.sh
 
 datetime=$(date +"%Y%m%d-%T")
