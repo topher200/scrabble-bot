@@ -2,19 +2,25 @@ from __future__ import division
 from __future__ import with_statement
 import itertools
 import logging
+import os
 import time
 from position import Position, PositionToTry
 from board import Board, OutOfBoundsException
 
-# Init dictionary
-DICTIONARY = []
-with open('short_dictionary.txt', 'r') as f:
-  for word in f.readlines():
-    DICTIONARY.append(word.strip())
-
 class Scrabble:
   def __init__(self, ):
     self.board = Board()
+
+    # Set up dictionary. Its location differs if running on local or Hadoop.
+    filename = 'short_dictionary.txt'
+    self.dictionary = set()
+    try:
+      f = open(filename, 'r')
+    except IOError:
+      f = open(os.path.join('helper_classes', filename), 'r')
+    for word in f.readlines():
+      self.dictionary.add(word.strip())
+    f.close()
 
   def try_letters_at_position(self, letters, position_to_try):
     '''Try all combinations of the letters at position to see if we can make a
@@ -33,7 +39,7 @@ class Scrabble:
           continue
         word = temp_board.get_word(position_to_try.position,
                                    position_to_try.direction)
-        if word in DICTIONARY:
+        if word in self.dictionary:
           # We made a word!
           words.append(word)
     return words
