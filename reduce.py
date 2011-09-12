@@ -4,7 +4,7 @@ import sys
 def main():
   words = set()
   for word in sys.stdin:
-    words.add(word)
+    words.add(word.strip())
   print words
 
 if __name__ == '__main__':
