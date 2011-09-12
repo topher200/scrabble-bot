@@ -88,15 +88,16 @@ def main():
   start_time = time.time()
 
   game = Scrabble()
-  game.board.add_letters('radar', Position(7, 4), Position.ACROSS)
-  game.board.add_letters('oom', Position(8, 4), Position.DOWN)
-  game.board.add_letters('eet', Position(10, 5), Position.ACROSS)
-  game.board.add_letters('admie', Position(3, 8), Position.DOWN)
+  game.board.add_letters('sire', Position(7, 7), Position.ACROSS)
+  game.board.add_letters('peheats', Position(6, 9), Position.DOWN)
+  game.board.add_letters('jt', Position(10, 8), Position.ACROSS)
+  game.board.add_letters('sidd', Position(8, 6), Position.ACROSS)
+  game.board.add_letters('gri', Position(12, 6), Position.ACROSS)
   logging.fatal(game.board)
 
   positions_to_try = game.generate_positions_to_try()
   logging.fatal(game.get_possible_words([
-        't', 'e', 'c', 
+        'b', 'h', 'k', 'a', 'a', 't', 'i', 
         ], positions_to_try))
 
   end_time = time.time()
