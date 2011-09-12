@@ -5,7 +5,8 @@ def main():
   words = set()
   for word in sys.stdin:
     words.add(word.strip())
-  print words
+  for word in words:
+    print word
 
 if __name__ == '__main__':
   main()
