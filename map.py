@@ -16,19 +16,22 @@ def set_up_game():
 
   return game
 
-def main(args):
+def main():
   start_time = time.time()
 
-  game = set_up_game()
-  position_to_try = PositionToTry()
-  position_to_try.parse_from_string(args[1])
+  for line in sys.stdin:
+    game = set_up_game()
+    position_to_try = PositionToTry()
+    position_to_try.parse_from_string(line)
 
-  print(game.try_letters_at_position([
+    word_list = game.try_letters_at_position([
         't', 'e', 'c', 
-        ], position_to_try))
+        ], position_to_try)
+    for word in word_list:
+      print word
 
   end_time = time.time()
   logging.debug("script took %s minutes" % ((end_time - start_time) / 60))
 
 if __name__ == '__main__':
-  main(sys.argv)
+  main()
