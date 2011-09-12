@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import sys
-sys.path.append('./helper_classes')  # necessary for Hadoop
+sys.path.append('.')  # necessary for Hadoop
 import logging
 import time
 from position import Position, PositionToTry
