@@ -5,4 +5,5 @@ elastic-mapreduce --stream \
 --input s3://tophernet.scrabble/input.txt \
 --output s3://tophernet.scrabble.output/out_1 \
 --reducer aggregate  \
+--cache-archive s3://tophernet.scrabble/classes.tar \
 -j j-3BASVGYS0MIX8
