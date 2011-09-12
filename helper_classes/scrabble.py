@@ -13,8 +13,8 @@ with open('short_dictionary.txt', 'r') as f:
     DICTIONARY.append(word.strip())
 
 class Scrabble:
-  def __init__(self, board = Board()):
-    self.board = board
+  def __init__(self, ):
+    self.board = Board()
 
   def try_letters_at_position(self, letters, position_to_try):
     '''Try all combinations of the letters at position to see if we can make a
