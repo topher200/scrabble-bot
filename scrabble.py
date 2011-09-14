@@ -1,6 +1,6 @@
 from __future__ import division
 from __future__ import with_statement
-import itertools
+import future_itertools
 import logging
 import os
 import time
@@ -28,7 +28,7 @@ class Scrabble:
     make sure we're touching it.'''
     words = []
     for num_letters in range(position_to_try.distance_to_closest_letter, 8):
-      for potential_word in itertools.permutations(letters, num_letters):
+      for potential_word in future_itertools.permutations(letters, num_letters):
         # Make a fake board and add these letters to it
         temp_board = self.board.copy()
         try:
