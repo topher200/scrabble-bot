@@ -4,7 +4,7 @@ import future_itertools
 import logging
 import os
 import time
-from position import Position, PositionToTry
+from position import Position, PositionWithDirection
 from board import Board, OutOfBoundsException
 
 class Scrabble:
@@ -74,8 +74,9 @@ class Scrabble:
           if not self.board.is_blank(position):
             # Skipping position- already has a letter
             continue
-          positions_to_try.append(PositionToTry(position, direction,
-                                                abs(distance_away_from_base)))
+          positions_to_try.append(
+            PositionWithDirection(position, direction,
+                                  abs(distance_away_from_base)))
     return positions_to_try
 
   def get_possible_words(self, letters, positions_to_try):

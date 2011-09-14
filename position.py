@@ -37,7 +37,7 @@ class Position(object):
     else:
       raise Exception("shouldn't get here. Direction: %s" % direction)
     
-class PositionToTry(object):
+class PositionWithDirection(object):
   def __init__(self, position = Position(), direction = Position.ACROSS,
                distance_to_closest_letter = 1):
     self.position = position

@@ -1,5 +1,5 @@
 import unittest
-from position import Position, PositionToTry
+from position import Position, PositionWithDirection
 
 class PositionTest(unittest.TestCase):
   def test_parse_from_string(self, ):
@@ -8,10 +8,10 @@ class PositionTest(unittest.TestCase):
     new.parse_from_string(str(orig))
     self.assertEqual(orig, new)
 
-class PositionToTryTest(unittest.TestCase):
+class PositionWithDirectionTest(unittest.TestCase):
   def test_parse_from_string(self):
-    orig = PositionToTry(Position(10, 15), Position.DOWN, 5)
-    new = PositionToTry()
+    orig = PositionWithDirection(Position(10, 15), Position.DOWN, 5)
+    new = PositionWithDirection()
     new.parse_from_string(str(orig))
     self.assertEqual(orig, new)
 

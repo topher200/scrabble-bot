@@ -3,7 +3,7 @@ import sys
 sys.path.append('./helper_classes')  # necessary for Hadoop
 import logging
 import time
-from position import Position, PositionToTry
+from position import Position, PositionWithDirection
 from scrabble import Scrabble
 
 def set_up_game():
@@ -21,7 +21,7 @@ def main():
 
   for line in sys.stdin:
     game = set_up_game()
-    position_to_try = PositionToTry()
+    position_to_try = PositionWithDirection()
     position_to_try.parse_from_string(line)
 
     word_list = game.try_letters_at_position([
