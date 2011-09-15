@@ -27,6 +27,7 @@ def main():
     position_to_try = PositionWithDirection()
     position_to_try.parse_from_string(line)
 
+    logging.info('Running at position: %s' % str(position_to_try))
     word_list = game.try_letters_at_position([
         't', 'e', 'c', 
         ], position_to_try)
