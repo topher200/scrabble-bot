@@ -35,7 +35,7 @@ def main():
       print word
 
   end_time = time.time()
-  logging.debug("script took %s minutes" % ((end_time - start_time) / 60))
+  logging.info("script took %s minutes" % ((end_time - start_time) / 60))
 
 if __name__ == '__main__':
   main()
