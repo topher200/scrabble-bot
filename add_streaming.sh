@@ -2,7 +2,7 @@
 ./upload_to_s3.sh
 
 datetime=$(date +"%Y%m%d-%T")
-elastic-mapreduce --stream --enable-debugging \
+elastic-mapreduce --stream \
 --mapper s3://tophernet.scrabble/map.py \
 --input s3://tophernet.scrabble/positions_to_try.txt \
 --output s3://tophernet.scrabble.output/output_$datetime \
