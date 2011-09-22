@@ -4,8 +4,7 @@ from position import Position, PositionWithDirection
 class PositionTest(unittest.TestCase):
   def test_parse_from_string(self, ):
     orig = Position(14, 12)
-    new = Position()
-    new.parse_from_string(str(orig))
+    new = Position.parse_from_string(str(orig))
     self.assertEqual(orig, new)
 
 class PositionWithDirectionTest(unittest.TestCase):

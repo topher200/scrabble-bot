@@ -5,9 +5,14 @@ class Position(object):
   ACROSS = 1
   DIRECTIONS = [DOWN, ACROSS]
 
-  def __init__(self, down = 0, across = 0):
+  def __init__(self, down, across):
     self.down = down
     self.across = across
+
+  @classmethod
+  def parse_from_string(cls, string):
+    down, across = map(int, re.search('(\d+), (\d+)', string).groups())
+    return cls(down, across)
 
   def __eq__(self, other_pos):
     return ((self.down == other_pos.down) and (self.across == other_pos.across))
@@ -20,10 +25,6 @@ class Position(object):
 
   def __str__(self, ):
     return '(%i, %i)' % (self.down, self.across)
-
-  def parse_from_string(self, string):
-    (self.down, self.across) = \
-        map(int, re.search('(\d+), (\d+)', string).groups())
 
   # TODO(topher): better way to create a copy
   def copy(self, ):
@@ -46,8 +47,7 @@ class PositionWithDirection(object):
   @classmethod
   def parse_from_string(cls, string):
     match = re.match('pos:(.*), direction:(\d+), min_distance:(\d+)', string)
-    position = Position()
-    position.parse_from_string(match.group(1))
+    position = Position.parse_from_string(match.group(1))
     direction = int(match.group(2))
     distance_to_closest_letter = int(match.group(3))
     return cls(position, direction, distance_to_closest_letter)
