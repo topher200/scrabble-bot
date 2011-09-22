@@ -24,8 +24,7 @@ def main():
 
   for line in sys.stdin:
     game = set_up_game()
-    position_to_try = PositionWithDirection()
-    position_to_try.parse_from_string(line)
+    position_to_try = PositionWithDirection.parse_from_string(line)
 
     logging.warn('Running at position: %s' % str(position_to_try))
     word_list = game.try_letters_at_position([

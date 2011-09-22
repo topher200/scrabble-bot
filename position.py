@@ -38,11 +38,19 @@ class Position(object):
       raise Exception("shouldn't get here. Direction: %s" % direction)
     
 class PositionWithDirection(object):
-  def __init__(self, position = Position(), direction = Position.ACROSS,
-               distance_to_closest_letter = 1):
+  def __init__(self, position, direction, distance_to_closest_letter = 1):
     self.position = position
     self.direction = direction
     self.distance_to_closest_letter = distance_to_closest_letter
+
+  @classmethod
+  def parse_from_string(cls, string):
+    match = re.match('pos:(.*), direction:(\d+), min_distance:(\d+)', string)
+    position = Position()
+    position.parse_from_string(match.group(1))
+    direction = int(match.group(2))
+    distance_to_closest_letter = int(match.group(3))
+    return cls(position, direction, distance_to_closest_letter)
 
   def __str__(self, ):
     return('pos:%s, direction:%i, min_distance:%i' % \
@@ -53,10 +61,4 @@ class PositionWithDirection(object):
         (self.direction == other_ptt.direction) and \
         (self.distance_to_closest_letter == \
            other_ptt.distance_to_closest_letter)
-
-  def parse_from_string(self, string):
-    match = re.match('pos:(.*), direction:(\d+), min_distance:(\d+)', string)
-    self.position.parse_from_string(match.group(1))
-    self.direction = int(match.group(2))
-    self.distance_to_closest_letter = int(match.group(3))
 

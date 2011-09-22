@@ -11,8 +11,7 @@ class PositionTest(unittest.TestCase):
 class PositionWithDirectionTest(unittest.TestCase):
   def test_parse_from_string(self):
     orig = PositionWithDirection(Position(10, 15), Position.DOWN, 5)
-    new = PositionWithDirection()
-    new.parse_from_string(str(orig))
+    new = PositionWithDirection.parse_from_string(str(orig))
     self.assertEqual(orig, new)
 
 if __name__ == '__main__':
