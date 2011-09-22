@@ -27,15 +27,15 @@ def main():
     position_to_try = PositionWithDirection()
     position_to_try.parse_from_string(line)
 
-    logging.info('Running at position: %s' % str(position_to_try))
+    logging.warn('Running at position: %s' % str(position_to_try))
     word_list = game.try_letters_at_position([
-        't', 'e', 'c', 
+        'h', 'k', 'a', 't', 'i', 'i', 'r', 
         ], position_to_try)
     for word in word_list:
       print word
 
   end_time = time.time()
-  logging.info("script took %s minutes" % ((end_time - start_time) / 60))
+  logging.warn("script took %s minutes" % ((end_time - start_time) / 60))
 
 if __name__ == '__main__':
   main()
