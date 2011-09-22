@@ -28,11 +28,11 @@ class Scrabble:
     make sure we're touching it.'''
     words = []
     for num_letters in range(position_to_try.distance_to_closest_letter, 8):
-      for potential_word in future_itertools.permutations(letters, num_letters):
+      for letters_to_try in future_itertools.permutations(letters, num_letters):
         # Make a fake board and add these letters to it
         temp_board = self.board.copy()
         try:
-          temp_board.add_letters(potential_word, position_to_try.position,
+          temp_board.add_letters(letters_to_try, position_to_try.position,
                                  position_to_try.direction)
         except OutOfBoundsException:
           # Just skip if we start or end out of bounds
