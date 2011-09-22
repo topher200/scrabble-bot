@@ -74,6 +74,7 @@ class LettersAtPosition:
     position_with_direction = \
         PositionWithDirection.parse_from_string(match.group(2))
     import string
+    # Grab every char in the letters 'group'
     letters = [char for char in match.group(1) \
                  if char in string.ascii_lowercase]
     return cls(position_with_direction, letters)
