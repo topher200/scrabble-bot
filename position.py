@@ -1,4 +1,5 @@
 import re
+import string
 
 class Position(object):
   DOWN = 0
@@ -62,3 +63,26 @@ class PositionWithDirection(object):
         (self.distance_to_closest_letter == \
            other_ptt.distance_to_closest_letter)
 
+
+class LettersAtPosition:
+  def __init__(self, position_with_direction, letters):
+    self.position_with_direction = position_with_direction
+    self.letters = letters
+
+  @classmethod
+  def parse_from_string(cls, string):
+    match = re.match('letters: {(.*)} at position: {(.*)}', string)
+    position_with_direction = \
+        PositionWithDirection.parse_from_string(match.group(2))
+    letters = [char for char in match.group(1) \
+                 if char in string.ascii_lowercase]
+    return cls(position_with_direction, letters)
+
+  def __str__(self, ):
+    return ('letters: {%s} at position: {%s}' %
+            (self.letters, self.position_with_direction))
+
+  def __eq__(self, other_lap):
+    return (self.position_with_direction == \
+              other_lap.position_with_direction) and \
+              (self.letters == other_lap.letters)
