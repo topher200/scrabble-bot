@@ -1,5 +1,4 @@
 import re
-import string
 
 class Position(object):
   DOWN = 0
@@ -74,6 +73,7 @@ class LettersAtPosition:
     match = re.match('letters: {(.*)} at position: {(.*)}', string)
     position_with_direction = \
         PositionWithDirection.parse_from_string(match.group(2))
+    import string
     letters = [char for char in match.group(1) \
                  if char in string.ascii_lowercase]
     return cls(position_with_direction, letters)
