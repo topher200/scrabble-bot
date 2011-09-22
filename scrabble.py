@@ -16,6 +16,8 @@ class Scrabble:
     self.dictionary = set()
     try:
       f = open(filename, 'r')
+    # TODO(topher): is this necessary? shouldn't adding the helper directory
+    # to our path make it visiable in the script?
     except IOError:
       f = open(os.path.join('helper_classes', filename), 'r')
     for word in f.readlines():
