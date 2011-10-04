@@ -57,7 +57,8 @@ class Scrabble:
     make a word. The minimum word length is the distance to the closest
     letter, to make sure we're touching it.'''
     good_words = []
-    for num_letters in range(position_to_try.distance_to_closest_letter, 8):
+    minimum_num_letters = self.board.get_spaces_to_next_letter(position_to_try)
+    for num_letters in range(minimum_num_letters, 8):
       for letters_to_try in future_itertools.permutations(self.rack,
                                                           num_letters):
         # Make a fake board and add these letters to it
@@ -79,9 +80,9 @@ class Scrabble:
     to the down/right. A position is skipped if it is not on the board or
     already occupied by a piece.
 
-    The return type is a dict of elements of the form:
-    (Position, distance away from closest letter on board)'''
-    positions_to_try = []
+    Return type is PositionWithDirection, which gives the position and
+    direction to be tried.'''
+    positions_to_try = set()
     for base_position in self.board.get_position_of_all_letters():
       for direction in Position.DIRECTIONS:
         # Try 7 to the left (or up), and 1 to the right (or down)
@@ -95,9 +96,7 @@ class Scrabble:
           if not self.board.is_blank(position):
             # Skipping position- already has a letter
             continue
-          positions_to_try.append(
-            PositionWithDirection(position, direction,
-                                  abs(distance_away_from_base)))
+          positions_to_try.add(PositionWithDirection(position, direction))
     return positions_to_try
 
 
