@@ -103,16 +103,10 @@ class Scrabble:
 
 def set_up_game():
   rack = [
-    's', 'a', 't', 
+    'v', 'e', 't', 'n', 'r', 'o', 't', 
     ]
   game = Scrabble(rack)
-  game.board.add_letters('sire', Position(7, 7), Position.ACROSS)
-  game.board.add_letters('peheats', Position(6, 9), Position.DOWN)
-  game.board.add_letters('jt', Position(10, 8), Position.ACROSS)
-  game.board.add_letters('sidd', Position(8, 6), Position.ACROSS)
-  game.board.add_letters('gri', Position(12, 6), Position.ACROSS)
-  game.board.add_letters('ba', Position(10, 6), Position.DOWN)
-  game.board.add_letters('ty', Position(10, 11), Position.ACROSS)
+  game.board.add_letters('pain', Position(7, 7), Position.DOWN)
 
   return game
 
