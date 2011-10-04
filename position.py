@@ -47,28 +47,24 @@ class Position(object):
 
     
 class PositionWithDirection(object):
-  def __init__(self, position, direction, distance_to_closest_letter = 1):
+  def __init__(self, position, direction, ):
     self.position = position
     self.direction = direction
-    self.distance_to_closest_letter = distance_to_closest_letter
 
   @classmethod
   def parse_from_string(cls, string):
     match = re.match('pos:(.*), direction:(\d+), min_distance:(\d+)', string)
     position = Position.parse_from_string(match.group(1))
     direction = int(match.group(2))
-    distance_to_closest_letter = int(match.group(3))
-    return cls(position, direction, distance_to_closest_letter)
+    return cls(position, direction)
 
   def __str__(self, ):
     return('pos:%s, direction:%i, min_distance:%i' % \
-        (str(self.position), self.direction, self.distance_to_closest_letter))
+        (str(self.position), self.direction))
 
   def __eq__(self, other_ptt):
     return (self.position == other_ptt.position) and \
-        (self.direction == other_ptt.direction) and \
-        (self.distance_to_closest_letter == \
-           other_ptt.distance_to_closest_letter)
+        (self.direction == other_ptt.direction)
 
 
 class LettersAtPosition:
