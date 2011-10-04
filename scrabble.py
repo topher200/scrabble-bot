@@ -82,7 +82,7 @@ class Scrabble:
 
     Return type is PositionWithDirection, which gives the position and
     direction to be tried.'''
-    positions_to_try = []
+    positions_to_try = set()
     for base_position in self.board.get_position_of_all_letters():
       for direction in Position.DIRECTIONS:
         # Try 7 to the left (or up), and 1 to the right (or down)
@@ -96,7 +96,7 @@ class Scrabble:
           if not self.board.is_blank(position):
             # Skipping position- already has a letter
             continue
-          positions_to_try.append(PositionWithDirection(position, direction))
+          positions_to_try.add(PositionWithDirection(position, direction))
     return positions_to_try
 
 
