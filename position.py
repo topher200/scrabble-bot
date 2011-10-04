@@ -53,14 +53,13 @@ class PositionWithDirection(object):
 
   @classmethod
   def parse_from_string(cls, string):
-    match = re.match('pos:(.*), direction:(\d+), min_distance:(\d+)', string)
+    match = re.match('pos:(.*), direction:(\d+)', string)
     position = Position.parse_from_string(match.group(1))
     direction = int(match.group(2))
     return cls(position, direction)
 
   def __str__(self, ):
-    return('pos:%s, direction:%i, min_distance:%i' % \
-        (str(self.position), self.direction))
+    return('pos:%s, direction:%i' % (str(self.position), self.direction))
 
   def __eq__(self, other_ptt):
     return (self.position == other_ptt.position) and \
