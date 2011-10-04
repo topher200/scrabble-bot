@@ -122,6 +122,7 @@ def main(positions_to_try=None, output=None):
     output = logging.fatal
 
   for position_to_try in positions_to_try:
+    logging.warn('Running at position: %s' % str(position_to_try))
     game = set_up_game()
     word_list = game.try_rack_at_position(position_to_try)
     for word_at_position in word_list:
