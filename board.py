@@ -17,9 +17,7 @@ class Board:
 
   def is_blank(self, position):
     # Returns True if the block is empty
-    if self[position] == EMPTY_SPACE:
-      return True
-    return False
+    return self[position] == EMPTY_SPACE
 
   def position_is_out_of_bounds(self, position):
     return (position.down < 0 or position.down >= self.BOARD_SIZE) or \
