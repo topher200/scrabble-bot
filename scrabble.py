@@ -57,7 +57,8 @@ class Scrabble:
     make a word. The minimum word length is the distance to the closest
     letter, to make sure we're touching it.'''
     good_words = []
-    for num_letters in range(position_to_try.distance_to_closest_letter, 8):
+    minimum_num_letters = self.board.get_spaces_to_next_letter(position_to_try)
+    for num_letters in range(minimum_num_letters, 8):
       for letters_to_try in future_itertools.permutations(self.rack,
                                                           num_letters):
         # Make a fake board and add these letters to it
