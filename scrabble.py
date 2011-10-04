@@ -12,7 +12,7 @@ class Scrabble:
     self.board = Board()
 
     # Set up dictionary. Its location differs if running on local or Hadoop.
-    filename = 'short_dictionary.txt'
+    filename = 'dictionary.txt'
     self.dictionary = set()
     try:
       f = open(filename, 'r')

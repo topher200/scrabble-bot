@@ -28,7 +28,7 @@ def main():
 
     logging.warn('Running at position: %s' % str(position_to_try))
     word_list = game.try_letters_at_position([
-        'h', 'k', 'a', 't', 'i', 'i', 'r', 
+        'i', 't'
         ], position_to_try)
     for word in word_list:
       print word
