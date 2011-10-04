@@ -4,7 +4,7 @@ import future_itertools
 import logging
 import os
 import time
-from position import Position, PositionWithDirection
+from position import Position, PositionWithDirection, LettersAtPosition
 from board import Board, OutOfBoundsException
 
 class Scrabble:
@@ -24,27 +24,53 @@ class Scrabble:
       self.dictionary.add(word.strip())
     f.close()
 
+  def is_word(self, possible_word):
+    return (possible_word in self.dictionary)
+
+  # TODO(topher): needs a better name
+  def try_letters(self, board, letters_at_position):
+    '''Adds the letters to the board. Returns False if a non-word is created
+    by any letter.'''
+    starting_pos = letters_at_position.position_with_direction.position.copy()
+    direction = letters_at_position.position_with_direction.direction
+    letters = letters_at_position.letters
+    try:
+      board.add_letters(letters, starting_pos, direction)
+    except OutOfBoundsException:
+      return False
+    # Check that there is a word at the original position/direction
+    if not self.is_word(board.get_word(starting_pos, direction)):
+      # We didn't make a real word
+      return False
+    # We made a real word, now check to make sure we didn't create any
+    # non-words in the other direction.
+    other_direction = Position.get_other_direction(direction)
+    for _ in range(len(letters)):
+      if not self.is_word(board.get_word(starting_pos, other_direction)):
+        return False
+      starting_pos.add_in_direction(1, direction)
+    # We made a word, and didn't make any non-words in the other direction!
+    return True
+
   def try_letters_at_position(self, letters, position_to_try):
     '''Try all combinations of the letters at position to see if we can make a
     word. The minimum word length is the distance to the closest letter, to
     make sure we're touching it.'''
-    words = []
+    good_words = []
     for num_letters in range(position_to_try.distance_to_closest_letter, 8):
       for letters_to_try in future_itertools.permutations(letters, num_letters):
         # Make a fake board and add these letters to it
         temp_board = self.board.copy()
+        letters_at_position = LettersAtPosition(position_to_try,
+                                                letters_to_try)
         try:
-          temp_board.add_letters(letters_to_try, position_to_try.position,
-                                 position_to_try.direction)
+          if self.try_letters(temp_board, letters_at_position):
+            # We made a word!
+            good_words.append(letters_at_position)
         except OutOfBoundsException:
           # Just skip if we start or end out of bounds
           continue
-        word = temp_board.get_word(position_to_try.position,
-                                   position_to_try.direction)
-        if word in self.dictionary:
-          # We made a word!
-          words.append(word)
-    return words
+    return good_words
 
   def try_letters_at_positions_to_try(self, letters, positions_to_try):
     word_lists = []
@@ -84,13 +110,10 @@ class Scrabble:
   def get_possible_words(self, letters, positions_to_try):
     '''Returns a list of the unique words we found.'''
     word_lists = self.try_letters_at_positions_to_try(letters, positions_to_try)
-    words = set()
+    words = []
     for word_list in word_lists:
-      if type(word_list) == str:
-        # Crap- it's not a list. It's just a single word
-        words.add(word_list)
-      for word in word_list:
-        words.add(word)
+      for word_at_position in word_list:
+        words.append(word_at_position)
     return words
 
 def main():
@@ -104,12 +127,14 @@ def main():
   game.board.add_letters('gri', Position(12, 6), Position.ACROSS)
   game.board.add_letters('ba', Position(10, 6), Position.DOWN)
   game.board.add_letters('ty', Position(10, 11), Position.ACROSS)
-  logging.fatal(game.board)
+  logging.warning(game.board)
 
   positions_to_try = game.generate_positions_to_try()
-  logging.fatal(game.get_possible_words([
-        'h', 'k', 'a', 
-        ], positions_to_try))
+  word_list = game.get_possible_words([
+      's', 'a', 't', 
+        ], positions_to_try)
+  for word_at_position in word_list:
+    logging.fatal(word_at_position)
 
   end_time = time.time()
   logging.warning("script took %s minutes" % ((end_time - start_time) / 60))
