@@ -53,13 +53,14 @@ class Scrabble:
     # We made a word, and didn't make any non-words in the other direction!
     return True
 
-  def try_letters_at_position(self, letters, position_to_try):
-    '''Try all combinations of the letters at position to see if we can make a
-    word. The minimum word length is the distance to the closest letter, to
-    make sure we're touching it.'''
+  def try_rack_at_position(self, position_to_try):
+    '''Try all combinations of the rack letters at position to see if we can
+    make a word. The minimum word length is the distance to the closest
+    letter, to make sure we're touching it.'''
     good_words = []
     for num_letters in range(position_to_try.distance_to_closest_letter, 8):
-      for letters_to_try in future_itertools.permutations(letters, num_letters):
+      for letters_to_try in future_itertools.permutations(self.rack,
+                                                          num_letters):
         # Make a fake board and add these letters to it
         temp_board = self.board.copy()
         letters_at_position = LettersAtPosition(position_to_try,
@@ -129,7 +130,7 @@ def main(positions_to_try=None, output=None):
 
   for position_to_try in positions_to_try:
     game = set_up_game()
-    word_list = game.try_letters_at_position(game.rack, position_to_try)
+    word_list = game.try_rack_at_position(position_to_try)
     for word_at_position in word_list:
       output(word_at_position)
 
