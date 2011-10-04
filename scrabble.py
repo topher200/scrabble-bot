@@ -80,8 +80,8 @@ class Scrabble:
     to the down/right. A position is skipped if it is not on the board or
     already occupied by a piece.
 
-    The return type is a dict of elements of the form:
-    (Position, distance away from closest letter on board)'''
+    Return type is PositionWithDirection, which gives the position and
+    direction to be tried.'''
     positions_to_try = []
     for base_position in self.board.get_position_of_all_letters():
       for direction in Position.DIRECTIONS:
@@ -96,9 +96,7 @@ class Scrabble:
           if not self.board.is_blank(position):
             # Skipping position- already has a letter
             continue
-          positions_to_try.append(
-            PositionWithDirection(position, direction,
-                                  abs(distance_away_from_base)))
+          positions_to_try.append(PositionWithDirection(position, direction))
     return positions_to_try
 
 
