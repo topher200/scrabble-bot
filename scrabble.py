@@ -73,14 +73,6 @@ class Scrabble:
           continue
     return good_words
 
-  def try_letters_at_positions_to_try(self, letters, positions_to_try):
-    word_lists = []
-    for position_to_try in positions_to_try:
-      logging.info('trying position: %s' % position_to_try.position)
-      word_lists.append(
-        self.try_letters_at_position(letters, position_to_try))
-    return word_lists
-
   def generate_positions_to_try(self, ):
     '''Returns all possible places where our 7 letters could be played. This
     means the 7 spaces to the top/left of each piece on the board, and 1 space
@@ -107,15 +99,6 @@ class Scrabble:
             PositionWithDirection(position, direction,
                                   abs(distance_away_from_base)))
     return positions_to_try
-
-  def get_possible_words(self, letters, positions_to_try):
-    '''Returns a list of the unique words we found.'''
-    word_lists = self.try_letters_at_positions_to_try(letters, positions_to_try)
-    words = []
-    for word_list in word_lists:
-      for word_at_position in word_list:
-        words.append(word_at_position)
-    return words
 
 
 def set_up_game():
