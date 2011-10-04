@@ -21,7 +21,8 @@ for word in f.readlines():
 f.close()
 
 class Scrabble:
-  def __init__(self, ):
+  def __init__(self, rack):
+    self.rack = rack
     self.board = Board()
 
   def is_word(self, possible_word):
@@ -116,10 +117,12 @@ class Scrabble:
         words.append(word_at_position)
     return words
 
-def main():
-  start_time = time.time()
 
-  game = Scrabble()
+def set_up_game():
+  rack = [
+    's', 'a', 't', 
+    ]
+  game = Scrabble(rack)
   game.board.add_letters('sire', Position(7, 7), Position.ACROSS)
   game.board.add_letters('peheats', Position(6, 9), Position.DOWN)
   game.board.add_letters('jt', Position(10, 8), Position.ACROSS)
@@ -127,14 +130,25 @@ def main():
   game.board.add_letters('gri', Position(12, 6), Position.ACROSS)
   game.board.add_letters('ba', Position(10, 6), Position.DOWN)
   game.board.add_letters('ty', Position(10, 11), Position.ACROSS)
-  logging.warning(game.board)
 
-  positions_to_try = game.generate_positions_to_try()
-  word_list = game.get_possible_words([
-      's', 'a', 't', 
-        ], positions_to_try)
-  for word_at_position in word_list:
-    logging.fatal(word_at_position)
+  return game
+
+
+def main(positions_to_try=None, output=None):
+  start_time = time.time()
+
+  if positions_to_try == None:
+    game = set_up_game()
+    logging.warning(game.board)
+    positions_to_try = game.generate_positions_to_try()
+  if output == None:
+    output = logging.fatal
+
+  for position_to_try in positions_to_try:
+    game = set_up_game()
+    word_list = game.try_letters_at_position(game.rack, position_to_try)
+    for word_at_position in word_list:
+      output(word_at_position)
 
   end_time = time.time()
   logging.warning("script took %s minutes" % ((end_time - start_time) / 60))
