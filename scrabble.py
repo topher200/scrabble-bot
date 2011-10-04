@@ -28,10 +28,9 @@ class Scrabble:
   def is_word(self, possible_word):
     return (possible_word in DICTIONARY)
 
-  # TODO(topher): needs a better name
-  def try_letters(self, board, letters_at_position):
-    '''Adds the letters to the board. Returns False if a non-word is created
-    by any letter.'''
+  def _try_letters_at_position(self, board, letters_at_position):
+    '''Adds the letters to the board at the given position. Returns False if a
+    non-word is created by any letter.'''
     starting_pos = letters_at_position.position_with_direction.position.copy()
     direction = letters_at_position.position_with_direction.direction
     letters = letters_at_position.letters
@@ -66,7 +65,7 @@ class Scrabble:
         letters_at_position = LettersAtPosition(position_to_try,
                                                 letters_to_try)
         try:
-          if self.try_letters(temp_board, letters_at_position):
+          if self._try_letters_at_position(temp_board, letters_at_position):
             # We made a word!
             good_words.append(letters_at_position)
         except OutOfBoundsException:
