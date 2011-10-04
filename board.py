@@ -93,3 +93,19 @@ class Board:
           position_list.append(position)
     return position_list
 
+  def get_spaces_to_next_letter(self, position_with_direction):
+    """Checks the space before and the spaces ahead for the closest letter"""
+    assert self.is_blank(position_with_direction.position)
+    # First, check if the space before has a letter
+    back_position = position_with_direction.position.copy()
+    back_position.add_in_direction(-1, position_with_direction.direction)
+    if not self.is_blank(back_position):
+      # The space before us has a letter!
+      return 1
+    # Nothing behind, so find the closest letter going forward
+    forward_position = position_with_direction.position.copy()
+    for spaces_away in range(1, self.BOARD_SIZE):
+      forward_position.add_in_direction(1, position_with_direction.direction)
+      if not self.is_blank(forward_position):
+        return spaces_away
+    assert False, "couldn't find a letter"
