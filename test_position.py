@@ -9,7 +9,7 @@ class PositionTest(unittest.TestCase):
 
 class PositionWithDirectionTest(unittest.TestCase):
   def test_parse_from_string(self):
-    orig = PositionWithDirection(Position(10, 15), Position.DOWN, 5)
+    orig = PositionWithDirection(Position(10, 15), Position.DOWN)
     new = PositionWithDirection.parse_from_string(str(orig))
     self.assertEqual(orig, new)
 
@@ -17,7 +17,7 @@ class LettersAtPositionTest(unittest.TestCase):
   @staticmethod
   def _create_letters_at_position():
     return LettersAtPosition(PositionWithDirection(Position(6, 7),
-                                                   Position.DOWN, 5),
+                                                   Position.DOWN),
                              ['a', 'b', 'c'])
 
   def test_equality(self):
