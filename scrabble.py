@@ -7,25 +7,25 @@ import time
 from position import Position, PositionWithDirection, LettersAtPosition
 from board import Board, OutOfBoundsException
 
+# Set up dictionary. Its location differs if running on local or Hadoop.
+filename = 'dictionary.txt'
+DICTIONARY = set()
+try:
+  f = open(filename, 'r')
+# TODO(topher): is this necessary? shouldn't adding the helper directory
+# to our path make it visiable in the script?
+except IOError:
+  f = open(os.path.join('helper_classes', filename), 'r')
+for word in f.readlines():
+  DICTIONARY.add(word.strip())
+f.close()
+
 class Scrabble:
   def __init__(self, ):
     self.board = Board()
 
-    # Set up dictionary. Its location differs if running on local or Hadoop.
-    filename = 'dictionary.txt'
-    self.dictionary = set()
-    try:
-      f = open(filename, 'r')
-    # TODO(topher): is this necessary? shouldn't adding the helper directory
-    # to our path make it visiable in the script?
-    except IOError:
-      f = open(os.path.join('helper_classes', filename), 'r')
-    for word in f.readlines():
-      self.dictionary.add(word.strip())
-    f.close()
-
   def is_word(self, possible_word):
-    return (possible_word in self.dictionary)
+    return (possible_word in DICTIONARY)
 
   # TODO(topher): needs a better name
   def try_letters(self, board, letters_at_position):
