@@ -61,6 +61,9 @@ class PositionWithDirection(object):
   def __str__(self, ):
     return('pos:%s, direction:%i' % (str(self.position), self.direction))
 
+  def __hash__(self, ):
+    return int('%06i%i' % (hash(self.position), self.direction))
+
   def __eq__(self, other_ptt):
     return (self.position == other_ptt.position) and \
         (self.direction == other_ptt.direction)
