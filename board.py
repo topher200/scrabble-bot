@@ -51,7 +51,7 @@ class Board:
   def add_letters(self, letters, starting_position, direction):
     '''Put letters on each blank space on the board, starting at
     starting_position and moving in direction until all the letters are used
-    up.'''
+    up. Throws OutOfBoundsException if the word starts or ends OOB.'''
     position = starting_position.copy()
     while len(letters) > 0:
       if self.position_is_out_of_bounds(position):
