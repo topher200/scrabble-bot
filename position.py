@@ -37,6 +37,14 @@ class Position(object):
       self.down += magnitude
     else:
       raise Exception("shouldn't get here. Direction: %s" % direction)
+
+  @staticmethod
+  def get_other_direction(direction):
+    if direction == Position.DOWN:
+      return Position.ACROSS
+    else:
+      return Position.DOWN
+
     
 class PositionWithDirection(object):
   def __init__(self, position, direction, distance_to_closest_letter = 1):
