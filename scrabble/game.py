@@ -105,10 +105,11 @@ class Scrabble:
 
 def set_up_game():
   rack = [
-    'v', 'e', 't'
+    'v', 'n', 'o', 't', 'e', 'a', 'e', 
     ]
   game = Scrabble(rack)
-  game.board.add_letters('pain', Position(7, 7), Position.DOWN)
+  game.board.add_letters('painter', Position(7, 7), Position.DOWN)
+  game.board.add_letters('dogaped', Position(10, 4), Position.ACROSS)
 
   return game
 
