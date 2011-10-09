@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 import sys
-sys.path.append('./helper_classes')  # necessary for Hadoop
 import logging
 import time
-from position import PositionWithDirection
-import scrabble
+import scrabble.game
+from scrabble.position import PositionWithDirection
 
 def main():
   positions_to_try = [PositionWithDirection.parse_from_string(line)
                       for line in sys.stdin]
-  scrabble.main(positions_to_try, sys.stdout)
+  scrabble.game.main(positions_to_try, sys.stdout)
 
 if __name__ == '__main__':
   main()
