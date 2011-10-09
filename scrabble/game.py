@@ -16,7 +16,7 @@ try:
 # TODO(topher): is this necessary? shouldn't adding the helper directory
 # to our path make it visiable in the script?
 except IOError:
-  f = open(os.path.join('helper_classes', filename), 'r')
+  f = open(os.path.join('scrabble', filename), 'r')
 for word in f.readlines():
   DICTIONARY.add(word.strip())
 f.close()
@@ -103,7 +103,7 @@ class Scrabble:
 
 def set_up_game():
   rack = [
-    'v', 'e', 't', 'n', 'r', 'o', 't', 
+    'v', 'e', 't'
     ]
   game = Scrabble(rack)
   game.board.add_letters('pain', Position(7, 7), Position.DOWN)
