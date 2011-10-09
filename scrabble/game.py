@@ -113,15 +113,13 @@ def set_up_game():
   return game
 
 
-def main(positions_to_try=None, output=None):
+def main(positions_to_try=None):
   start_time = time.time()
 
   if positions_to_try == None:
     game = set_up_game()
     logging.warning(game.board)
     positions_to_try = game.generate_positions_to_try()
-  if output == None:
-    output = logging.fatal
 
   for position_to_try in positions_to_try:
     logging.warn('Running at position: %s' % str(position_to_try))
