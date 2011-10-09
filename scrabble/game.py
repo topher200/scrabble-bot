@@ -41,10 +41,16 @@ class Scrabble:
     # We made a real word, now check to make sure we didn't create any
     # non-words in the other direction.
     other_direction = Position.get_other_direction(direction)
+    moving_position = starting_pos.copy()
     for _ in range(len(letters)):
-      if not self.is_word(board.get_word(starting_pos, other_direction)):
+      generated_word = board.get_word(moving_position, other_direction)
+      if len(generated_word) < 2:
+        # This one isn't a word- it's just a letter. We're fine
+        continue
+      if not self.is_word(generated_word):
+        # We accidentally made a non word!
         return False
-      starting_pos.add_in_direction(1, direction)
+      moving_position.add_in_direction(1, direction)
     # We made a word, and didn't make any non-words in the other direction!
     return True
 
