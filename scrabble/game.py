@@ -8,18 +8,13 @@ import time
 from position import Position, PositionWithDirection, LettersAtPosition
 from board import Board, OutOfBoundsException
 
-# Set up dictionary. Its location differs if running on local or Hadoop.
-filename = 'dictionary.txt'
+# Set up dictionary. It is located in the same directory as this library.
 DICTIONARY = set()
-try:
-  f = open(filename, 'r')
-# TODO(topher): is this necessary? shouldn't adding the helper directory
-# to our path make it visiable in the script?
-except IOError:
-  f = open(os.path.join('scrabble', filename), 'r')
-for word in f.readlines():
-  DICTIONARY.add(word.strip())
-f.close()
+dir_path = os.path.dirname(os.path.abspath(__file__))
+filename = 'dictionary.txt'
+with open(os.path.join(dir_path, filename), 'r') as f:
+  for word in f.readlines():
+    DICTIONARY.add(word.strip())
 
 class Scrabble:
   def __init__(self, rack):
