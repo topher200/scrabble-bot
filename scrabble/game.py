@@ -4,6 +4,7 @@ from __future__ import with_statement
 import future_itertools
 import logging
 import os
+import sys
 import time
 from position import Position, PositionWithDirection, LettersAtPosition
 from board import Board, OutOfBoundsException
@@ -127,7 +128,7 @@ def main(positions_to_try=None, output=None):
     game = set_up_game()
     word_list = game.try_rack_at_position(position_to_try)
     for word_at_position in word_list:
-      output(word_at_position)
+      sys.stdout.write(str(word_at_position) + '\n')
 
   end_time = time.time()
   logging.warning("script took %s minutes" % ((end_time - start_time) / 60))
