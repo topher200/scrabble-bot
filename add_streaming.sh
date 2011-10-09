@@ -8,4 +8,4 @@ elastic-mapreduce --stream \
 --output s3://tophernet.scrabble.output/output_$datetime \
 --reducer s3://tophernet.scrabble/reduce.py  \
 --cache-archive s3://tophernet.scrabble/helper_classes.tar#helper_classes \
--j j-3LDVBBNGDCGRV
+-j j-1KN0GPY19L722
