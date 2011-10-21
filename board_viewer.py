@@ -11,7 +11,7 @@ def view(moves=None):
   for position_to_view in moves:
     game = scrabble.game.set_up_game()
     pos = LettersAtPosition.parse_from_string(position_to_view)
-    if len(pos.letters) < 5:
+    if len(pos.letters) < 4:
       continue
     game.board.add_letters(map(string.upper, pos.letters),
                            pos.position_with_direction.position,

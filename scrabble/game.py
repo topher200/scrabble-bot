@@ -105,11 +105,29 @@ class Scrabble:
 
 def set_up_game():
   rack = [
-    'v', 'n', 'o', 't', 'e', 'a', 'e', 
+    'q', 'i', 's', 'n', 'e', 'c', 'n', 
     ]
   game = Scrabble(rack)
   game.board.add_letters('painter', Position(7, 7), Position.DOWN)
   game.board.add_letters('dogaped', Position(10, 4), Position.ACROSS)
+  game.board.add_letters('avent', Position(9, 4), Position.DOWN)
+  game.board.add_letters('aragon', Position(7, 7), Position.ACROSS)
+  game.board.add_letters('yow', Position(8, 10), Position.ACROSS)
+  game.board.add_letters('maw', Position(6, 10), Position.ACROSS)
+  game.board.add_letters('m', Position(9, 4), Position.ACROSS)
+  game.board.add_letters('ooz', Position(12, 1), Position.ACROSS)
+  game.board.add_letters('fecil', Position(3, 8), Position.DOWN)
+  game.board.add_letters('yagi', Position(0, 7), Position.DOWN)
+  game.board.add_letters('blott', Position(0, 2), Position.ACROSS)
+  game.board.add_letters('ex', Position(13, 8), Position.ACROSS)
+  game.board.add_letters('glers', Position(1, 4), Position.DOWN)
+  game.board.add_letters('deai', Position(4, 0), Position.ACROSS)
+  game.board.add_letters('htik', Position(5, 4), Position.ACROSS)
+  game.board.add_letters('rid', Position(14, 8), Position.ACROSS)
+  game.board.add_letters('eated', Position(11, 8), Position.ACROSS)
+  game.board.add_letters('un', Position(1, 2), Position.DOWN)
+  game.board.add_letters('nins', Position(1, 1), Position.DOWN)
+  game.board.add_letters('fur', Position(7, 3), Position.DOWN)
 
   return game
 
